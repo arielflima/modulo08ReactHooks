@@ -1,13 +1,21 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   const [tech, setTech] = useState([]);
   const [newTech, setNewTech] = useState('');
+  /* USANDO FUNCTION, TODA VEZ QUE O VALOR É ALTERADO A FUNÇÂO MUDA, CAUSANDO
+  PROBLEMAS DE PERFORMANCE.
 
   function handleAdd() {
     setTech([...tech, newTech]);
     setNewTech('');
   }
+*/
+
+  const handleAdd = useCallback(() => {
+    setTech([...tech, newTech]);
+    setNewTech('');
+  }, [newTech, tech]);
 
   useEffect(() => {
     const storageTech = localStorage.getItem('tech');
